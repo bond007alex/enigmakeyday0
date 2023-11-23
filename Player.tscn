@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqbtnfxbl7s0f"]
+
+[ext_resource type="Texture2D" uid="uid://cv3k4sgelqxvf" path="res://vector_laughing_man_logo_by_ericdbz.png" id="1_tcre3"]
+[ext_resource type="Script" path="res://plmv.gd" id="2_l06st"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sqhte"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tcre3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bbnkx"]
+radius = 99.0
+height = 198.0
+
+[node name="Node2D" type="Node2D"]
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(132, 117.906)
+scale = Vector2(0.293333, 0.3014)
+sprite_frames = SubResource("SpriteFrames_sqhte")
+script = ExtResource("2_l06st")
+
+[node name="Camera2D" type="Camera2D" parent="AnimatedSprite2D"]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(-450.001, -391.194)
+scale = Vector2(3.40909, 3.31785)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D"]
+position = Vector2(130, 117)
+shape = SubResource("CapsuleShape2D_bbnkx")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(130, 116)
+scale = Vector2(1, 1)
+
+[connection signal="body_entered" from="AnimatedSprite2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_body_entered"]

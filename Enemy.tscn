@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjjubgsqg5csb"]
+
+[ext_resource type="Script" path="res://enmv.gd" id="1_8ys0k"]
+[ext_resource type="Texture2D" uid="uid://bhgpahgngae67" path="res://R (1).png" id="1_ge4k7"]
+[ext_resource type="Texture2D" uid="uid://c2lkrrykbnw06" path="res://R (3).png" id="2_jaydk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7pxv5"]
+radius = 206.0
+height = 568.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i34rx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ge4k7")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jaydk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_amb64"]
+size = Vector2(73401, 50289)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_8ys0k")
+metadata/_edit_group_ = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CapsuleShape2D_7pxv5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.197961, 0.197961)
+sprite_frames = SubResource("SpriteFrames_i34rx")
+
+[node name="detection" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection"]
+position = Vector2(-111.5, 421.5)
+shape = SubResource("RectangleShape2D_amb64")
+
+[connection signal="body_entered" from="detection" to="RigidBody2D" method="_on_detection_body_entered"]
